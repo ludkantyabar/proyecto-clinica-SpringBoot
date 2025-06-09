@@ -1,0 +1,5 @@
+/* Estilo carrusel */
+.carousel-inner img {
+  object-fit: cover; /* Recorta la imagen para que llene el contenedor */
+  height: 350px; /* Altura del carrusel */
+}

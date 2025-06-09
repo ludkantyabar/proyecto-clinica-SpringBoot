@@ -1,0 +1,14 @@
+Nombre: ronald
+Email: luuu@gmail.com
+Teléfono: 123456
+Servicio: consulta-medica
+Fecha: 2025-05-12
+Hora: 12:23
+=====================================
+Nombre: ronald
+Email: ludkant@gmail.com
+Teléfono: 12345
+Servicio: laboratorio-clinico
+Fecha: 2025-12-12
+Hora: 12:12
+=====================================

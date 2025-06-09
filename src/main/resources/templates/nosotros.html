@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avance Trabajo Final - Clínica Salud</title>
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Hero Section -->
+<section class="bg-light text-center py-5">
+    <div class="container">
+        <div class="p-4 mb-4 border rounded shadow">
+            <h1 class="display-4">Nosotros</h1>
+            <p class="lead">Somos la Clínica Salud, con varios años de experiencia en tratamiento médico integral</p>
+        </div>
+
+        <div class="mt-4 p-4 border text-left">
+            <h3>Nuestra Historia y Compromiso</h3>
+            <p>
+                En Clínica Salud, nos dedicamos a brindar atención médica integral con calidez, excelencia y un enfoque centrado en el paciente. Desde nuestra fundación, nos hemos comprometido a ser un referente de calidad en servicios de salud, combinando tecnología avanzada con un equipo humano altamente capacitado y empático.
+            </p>
+            <p>
+                Nuestra misión es cuidar, prevenir y mejorar la calidad de vida de nuestros pacientes, ofreciendo diagnósticos precisos, tratamientos personalizados y seguimiento continuo. Creemos que la salud es un derecho fundamental, por lo que trabajamos cada día para hacerla accesible, cercana y humana.
+            </p>
+
+            <h3>Nuestros Pilares</h3>
+            <ul>
+                <li>Profesionalismo: Contamos con médicos especialistas certificados y en constante actualización.</li>
+
+                <li>Tecnología: Equipos modernos y protocolos basados en evidencia científica.</li>
+
+                <li>Calidez: Atención personalizada, escucha activa y respeto por cada individuo.</li>
+
+                <li>Compromiso social: Programas de prevención y alianzas para llegar a más comunidades.</li>
+            </ul>
+
+            <h3>Un Equipo que te Cuida</h3>
+            <p>Detrás de Clínica Salud hay historias de vida, vocaciones de servicio y la convicción de que la medicina debe ser preventiva y curativa. Nos enorgullece ser parte de tu bienestar y acompañarte en cada etapa.</p>
+
+            <p>¡Conócenos y descubre por qué somos tu mejor opción en salud!</p>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
