@@ -12,3 +12,10 @@ Servicio: laboratorio-clinico
 Fecha: 2025-12-12
 Hora: 12:12
 =====================================
+Nombre: Ludkant Yabar Galindo
+Email: ludkant@gmail.com
+Teléfono: 944046647
+Servicio: com.grupo2.happypets.model.Servicio@5f06a766
+Fecha: 2025-12-12
+Hora: 12:12
+=====================================
