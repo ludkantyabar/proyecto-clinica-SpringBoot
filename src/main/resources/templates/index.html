@@ -98,22 +98,41 @@
     <h2 class="text-center mb-4 text-primary">Reserva tu Cita Médica</h2>
     <form action="/guardarReserva" method="post" class="p-5 border rounded shadow-lg bg-light">
         <div class="row g-4">
-            <!-- Columna izquierda -->
+            <!-- Columna izquierda - Datos de usuario y pago -->
             <div class="col-md-6">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
                     <label for="nombre">Nombre Completo</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu email" required>
-                    <label for="email">Correo Electrónico</label>
+                    <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingresa tu DNI" required>
+                    <label for="dni">DNI</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" placeholder="Ingresa tu email" required>
+                    <label for="correoElectronico">Correo Electrónico</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingresa tu número de teléfono" required>
                     <label for="telefono">Teléfono</label>
                 </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="tipoPago" name="tipoPago" required>
+                        <option value="" disabled selected>Seleccione un método de pago</option>
+                        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                    <label for="tipoPago">Método de Pago</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="numeroTarjeta" name="numeroTarjeta" placeholder="Número de tarjeta" maxlength="16">
+                    <label for="numeroTarjeta">Número de Tarjeta</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="monto" name="monto" placeholder="Monto a pagar" min="0" step="0.01" required>
+                    <label for="monto">Monto</label>
+                </div>
             </div>
-
             <!-- Columna derecha -->
             <div class="col-md-6">
                 <div class="form-floating mb-3">
@@ -122,6 +141,13 @@
                         <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
                     </select>
                     <label for="servicio">Servicio</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="especialidad" name="especialidad" required>
+                        <option value="" disabled selected>Seleccione una especialidad</option>
+                        <option th:each="especialidad : ${especialidades}" th:value="${especialidad.id}" th:text="${especialidad.nombre}"></option>
+                    </select>
+                    <label for="especialidad">Especialidad</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="date" class="form-control" id="fecha" name="fecha" required>
@@ -133,7 +159,10 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Reservar</button>
+        <!-- Botón Reservar -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
+        </div>
     </form>
 
     <!-- Lista de Reservas -->
@@ -147,6 +176,7 @@
                     <th class="py-2 px-3 small">Correo Electrónico</th>
                     <th class="py-2 px-3 small">Teléfono</th>
                     <th class="py-2 px-3 small">Servicio</th>
+                    <th class="py-2 px-3 small">Especialidad</th>
                     <th class="py-2 px-3 small">Fecha</th>
                     <th class="py-2 px-3 small">Hora</th>
                 </tr>
@@ -157,6 +187,7 @@
                     <td th:text="${reserva.email}"></td>
                     <td th:text="${reserva.telefono}"></td>
                     <td th:text="${reserva.servicio}"></td>
+                    <td th:text="${reserva.especialidad}"></td>
                     <td th:text="${reserva.fecha}"></td>
                     <td th:text="${reserva.hora}"></td>
                 </tr>
@@ -164,11 +195,13 @@
             </table>
         </div>
     </div>
+
     <!-- Botón para descargar el reporte de reservas -->
     <div class="text-center mt-4">
         <a href="/descargarReservas" class="btn btn-success">Descargar Reporte de Reservas</a>
     </div>
 </section>
+
 <!-- Footer -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
