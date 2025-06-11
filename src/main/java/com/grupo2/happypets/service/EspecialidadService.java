@@ -2,31 +2,39 @@ package com.grupo2.happypets.service;
 
 import com.grupo2.happypets.model.Especialidad;
 import com.grupo2.happypets.repository.EspecialidadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EspecialidadService {
-    private final EspecialidadRepository especialidadRepository;
 
-    public EspecialidadService(EspecialidadRepository especialidadRepository) {
-        this.especialidadRepository = especialidadRepository;
-    }
+    @Autowired
+    private EspecialidadRepository especialidadRepository;
 
-    public List<Especialidad> findAll() {
+    public List<Especialidad> obtenerTodasEspecialidades() {
         return especialidadRepository.findAll();
     }
 
-    public Optional<Especialidad> findById(String nombre) {
-        return especialidadRepository.findById(nombre);
-    }
-
-    public Especialidad save(Especialidad especialidad) {
+    public Especialidad guardarEspecialidad(Especialidad especialidad) {
         return especialidadRepository.save(especialidad);
     }
 
-    public void deleteById(String nombre) {
-        especialidadRepository.deleteById(nombre);
+    public Especialidad obtenerEspecialidadPorId(Long id) {
+        return especialidadRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Especialidad no encontrada con ID: " + id));
+    }
+
+    public void eliminarEspecialidad(Long id) {
+        // Verificar si la especialidad tiene médicos asociados antes de eliminar
+        if(!especialidadRepository.existsById(id)) {
+            throw new RuntimeException("Especialidad no encontrada con ID: " + id);
+        }
+        especialidadRepository.deleteById(id);
+    }
+
+    public boolean existeEspecialidadPorNombre(String nombre) {
+        return especialidadRepository.existsByNombre(nombre);
     }
 }

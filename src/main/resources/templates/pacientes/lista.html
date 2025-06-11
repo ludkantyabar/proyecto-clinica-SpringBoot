@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+  <title>Lista de Pacientes</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Salud - Sistema de Gestión</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+      .dashboard-card {
+          transition: transform 0.3s, box-shadow 0.3s;
+          border-radius: 10px;
+          overflow: hidden;
+          height: 100%;
+      }
+      .dashboard-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .card-icon {
+          font-size: 2.5rem;
+          margin-bottom: 1rem;
+      }
+      .welcome-section {
+          background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+          color: white;
+          border-radius: 10px;
+          padding: 2rem;
+          margin-bottom: 2rem;
+      }
+      .stat-card {
+          border-left: 4px solid;
+          border-radius: 5px;
+      }
+    </style>
+  </head>
+<body>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="bi bi-heart-pulse"></i> Clínica Salud
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#"><i class="bi bi-house-door"></i> Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people"></i> Pacientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a>
+        </li>
+      </ul>
+      <div class="ms-3">
+        <span class="text-white"><i class="bi bi-person-circle"></i> Admin</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div layout:fragment="content">
+  <h2>Lista de Pacientes</h2>
+
+  <!-- Mensajes flash -->
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+  <!-- Barra de búsqueda -->
+  <form th:action="@{/pacientes}" method="get" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="search" class="form-control" placeholder="Buscar pacientes..."
+             th:value="${param.search}">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+      <a th:href="@{/pacientes}" class="btn btn-secondary">Limpiar</a>
+    </div>
+  </form>
+
+  <a th:href="@{/pacientes/nuevo}" class="btn btn-primary mb-3">
+    <i class="bi bi-plus-circle"></i> Nuevo Paciente
+  </a>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="paciente : ${pacientes}">
+        <td th:text="${paciente.idPaciente}"></td>
+        <td th:text="${paciente.dni}"></td>
+        <td th:text="${paciente.nombre + ' ' + paciente.apellido}"></td>
+        <td th:text="${paciente.telefono}"></td>
+        <td th:text="${paciente.email}"></td>
+        <td>
+          <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}"
+             class="btn btn-sm btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+          </a>
+          <a th:href="@{/pacientes/eliminar/{id}(id=${paciente.idPaciente})}"
+             class="btn btn-sm btn-danger"
+             onclick="return confirm('¿Está seguro que desea eliminar este paciente?')">
+            <i class="bi bi-trash"></i> Eliminar
+          </a>
+          <a th:href="@{/pacientes/detalles/{id}(id=${paciente.idPaciente})}"
+             class="btn btn-sm btn-info">
+            <i class="bi bi-eye"></i> Detalles
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
