@@ -10,13 +10,12 @@ import com.grupo2.happypets.validation.UniqueDni;
 
 @Data
 @Entity
-@Table(name = "pacientes")
+@Table(name = "pacientes", uniqueConstraints = @UniqueConstraint(columnNames = "dni"))
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaciente;
 
-    @UniqueDni
     @Column(nullable = false, unique = true)
     private String dni;
 

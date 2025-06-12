@@ -21,5 +21,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
             @Param("searchTerm") String searchTerm1,
             @Param("searchTerm") String searchTerm2,
             @Param("searchTerm") String searchTerm3);
+
     long count();
 }
