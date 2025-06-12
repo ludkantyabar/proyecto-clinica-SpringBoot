@@ -1,9 +1,10 @@
 package com.grupo2.happypets.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Entity
@@ -15,6 +16,7 @@ public class Ticket {
 
     @OneToOne
     @JoinColumn(name = "id_cita", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cita cita;
 
     @Column(nullable = false, unique = true, length = 20)
@@ -23,6 +25,6 @@ public class Ticket {
     private Date fechaImpresion = new Date();
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String contenido;
 }

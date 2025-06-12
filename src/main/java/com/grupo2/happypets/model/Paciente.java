@@ -2,7 +2,9 @@ package com.grupo2.happypets.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.Date;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -22,13 +24,14 @@ public class Paciente {
     @Column(nullable = false)
     private String apellido;
 
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private String telefono;
     private String email;
     private String direccion;
 
+    @CreationTimestamp
     @Column(updatable = false)
-    private Date fechaRegistro = new Date();
+    private LocalDateTime fechaRegistro;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Cita> citas;

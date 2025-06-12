@@ -1,8 +1,9 @@
 package com.grupo2.happypets.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -26,7 +27,8 @@ public class Cita {
     private Consultorio consultorio;
 
     @Column(nullable = false)
-    private Date fechaHora;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime fechaHora;
 
     @Enumerated(EnumType.STRING)
     private EstadoCita estado = EstadoCita.PENDIENTE;
