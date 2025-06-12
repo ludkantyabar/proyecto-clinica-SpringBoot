@@ -4,52 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avance Trabajo Final - Clínica Salud</title>
+    <title>Clínica Salud - Sistema de Gestión</title>
+
     <!-- BOOTSTRAP CSS -->
 </head>
 
 <body>
-
-<!-- Header -->
-<header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Clinica Salud</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/' ? 'active':''}" th:href="@{/}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/especialidades' ? 'active':''}" th:href="@{/especialidades}">Especialidades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/nosotros' ? 'active':''}" th:href="@{/nosotros}">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/contactenos' ? 'active':''}" th:href="@{contactenos}">Contáctenos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/privacidad' ? 'active':''}" th:href="@{/privacidad}"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${requestURI == '/terminos' ? 'active':''}" th:href="@{/terminos}"></a>
-                    </li>
-                </ul>
-                <form class="d-flex ms-3">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</header>
-
 <!-- carrusel -->
 <div th:fragment="carrusel" id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
