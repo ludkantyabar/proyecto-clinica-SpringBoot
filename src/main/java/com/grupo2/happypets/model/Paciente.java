@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.grupo2.happypets.validation.UniqueDni;
 
 @Data
 @Entity
@@ -15,6 +16,7 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaciente;
 
+    @UniqueDni
     @Column(nullable = false, unique = true)
     private String dni;
 
