@@ -1,6 +1,7 @@
 package com.grupo2.happypets.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
@@ -16,18 +17,29 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaciente;
 
+    @NotBlank(message = "El DNI es obligatorio")
+    @Size(min = 8, max = 12, message = "El DNI debe tener entre 8 y 12 caracteres")
     @Column(nullable = false, unique = true)
     private String dni;
 
+    @NotBlank(message = "El nombre es obligatorio")
     @Column(nullable = false)
     private String nombre;
 
+    @NotBlank(message = "El apellido es obligatorio")
     @Column(nullable = false)
     private String apellido;
 
+    @Past(message = "La fecha de nacimiento debe estar en el pasado")
     private LocalDate fechaNacimiento;
+
+    @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
+
+    @Email(message = "El email debe ser válido")
     private String email;
+
+    @NotBlank(message = "La dirección es obligatoria")
     private String direccion;
 
     @CreationTimestamp
