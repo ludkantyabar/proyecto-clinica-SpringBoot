@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .roles(
                         paciente.getRoles()
                                 .stream()
-                                .map(rol -> rol.getNombre())
+                                .map(rol -> rol.getNombre().replaceFirst("^ROLE_", "")) // Quita el prefijo ROLE_
                                 .toArray(String[]::new)
                 )
                 .build();
