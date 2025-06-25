@@ -1,7 +1,10 @@
 package com.grupo2.happypets.service;
 
 import com.grupo2.happypets.model.Paciente;
+import com.grupo2.happypets.model.Rol;
+import com.grupo2.happypets.model.TipoRol;
 import com.grupo2.happypets.repository.PacienteRepository;
+import com.grupo2.happypets.repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +16,12 @@ import java.util.List;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final RolRepository rolRepository;
 
     @Autowired
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, RolRepository rolRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.rolRepository = rolRepository;
     }
 
     public List<Paciente> obtenerTodosPacientes() {
@@ -78,5 +83,19 @@ public class PacienteService {
 
     public long countPacientes() {
         return pacienteRepository.count();
+    }
+
+    public void registrarPaciente(Paciente paciente) {
+        if (pacienteRepository.existsByDni(paciente.getDni())) {
+            throw new IllegalArgumentException("El DNI ya está registrado");
+        }
+        if (paciente.getRoles() == null || paciente.getRoles().isEmpty()) {
+            Rol rolPaciente = rolRepository.findByTipoRol(TipoRol.PACIENTE);
+            if (rolPaciente == null) {
+                throw new RuntimeException("No existe el rol PACIENTE en la base de datos");
+            }
+            paciente.setRoles(List.of(rolPaciente));
+        }
+        pacienteRepository.save(paciente);
     }
 }

@@ -1,6 +1,7 @@
 package com.grupo2.happypets.Controller;
 
 
+import com.grupo2.happypets.model.Paciente;
 import com.grupo2.happypets.service.CitaService;
 import com.grupo2.happypets.service.ConsultorioService;
 import com.grupo2.happypets.service.MedicoService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,5 +50,24 @@ public class IndexController {
         model.addAttribute("proximasCitas", citaService.findCitasBetween(startOfDay, endOfWeek));
 
         return "index";
+    }
+    // Mostrar formulario de registro
+    @GetMapping("/registrar")
+    public String mostrarFormularioRegistro(Model model) {
+        model.addAttribute("paciente", new Paciente());
+        return "registro";
+    }
+
+    // Procesar registro
+    @PostMapping("/registrar")
+    public String registrarPaciente(@ModelAttribute Paciente paciente) {
+        pacienteService.registrarPaciente(paciente);
+        return "redirect:/login";
+    }
+
+    // Mostrar formulario de login
+    @GetMapping("/login")
+    public String mostrarFormularioLogin() {
+        return "login";
     }
 }
