@@ -1,6 +1,5 @@
 package com.grupo2.happypets.Controller;
 
-
 import com.grupo2.happypets.model.Paciente;
 import com.grupo2.happypets.service.CitaService;
 import com.grupo2.happypets.service.ConsultorioService;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,7 +36,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        // Obtener estadísticas
         LocalDateTime startOfDay = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
         LocalDateTime endOfDay = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
 
@@ -45,16 +44,19 @@ public class IndexController {
         model.addAttribute("totalMedicos", medicoService.countMedicos());
         model.addAttribute("totalConsultorios", consultorioService.countConsultorios());
 
-        // Obtener próximas citas (hoy + 7 días)
         LocalDateTime endOfWeek = endOfDay.plusDays(7);
         model.addAttribute("proximasCitas", citaService.findCitasBetween(startOfDay, endOfWeek));
 
         return "index";
     }
-    // Mostrar formulario de registro
+
+    // Mostrar formulario de registro (maneja AJAX y acceso normal)
     @GetMapping("/registrar")
-    public String mostrarFormularioRegistro(Model model) {
+    public String mostrarFormularioRegistro(Model model, HttpServletRequest request) {
         model.addAttribute("paciente", new Paciente());
+        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            return "fragments/registro-form :: formulario";
+        }
         return "registro";
     }
 

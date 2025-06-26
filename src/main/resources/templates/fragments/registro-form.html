@@ -1,0 +1,67 @@
+<!-- fragments/registro-form.html -->
+<div th:fragment="formulario">
+    <form th:action="@{/registrar}" th:object="${paciente}" method="post">
+        <div class="mb-3">
+            <label class="form-label">DNI:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" th:field="*{dni}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" th:field="*{nombre}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Apellido:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" th:field="*{apellido}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha de Nacimiento:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                <input type="date" th:field="*{fechaNacimiento}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Teléfono:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                <input type="text" th:field="*{telefono}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" th:field="*{email}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dirección:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                <input type="text" th:field="*{direccion}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña:</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input type="password" th:field="*{password}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </form>
+    <div class="mt-3 text-center">
+        <a th:href="@{/login}">¿Ya tienes cuenta? Inicia sesión</a>
+    </div>
+</div>

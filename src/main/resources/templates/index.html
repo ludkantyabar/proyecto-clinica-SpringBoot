@@ -73,7 +73,7 @@
                 </li>
             </ul>
             <div class="ms-3">
-                <a class="btn btn-outline-light ms-3" th:href="@{/registrar}">
+                <a class="btn btn-outline-light ms-3" href="#" data-bs-toggle="modal" data-bs-target="#modalRegistrarPaciente" id="btnRegistrarPaciente">
                     <i class="bi bi-person-plus"></i> Registrar Paciente
                 </a>
             </div>
@@ -203,6 +203,20 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Registrar Paciente -->
+    <div class="modal fade" id="modalRegistrarPaciente" tabindex="-1" aria-labelledby="modalRegistrarPacienteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalRegistrarPacienteLabel">Registrar Paciente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="modalRegistrarPacienteBody">
+                    <!-- Aquí se cargará el formulario de registro -->
                 </div>
             </div>
         </div>
