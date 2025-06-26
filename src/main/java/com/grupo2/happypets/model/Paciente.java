@@ -55,6 +55,7 @@ public class Paciente {
             joinColumns = @JoinColumn(name = "paciente_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
+
     private Collection<Rol> roles;
 
     @CreationTimestamp
@@ -64,7 +65,4 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Cita> citas;
 
-    public String getEmail() {
-        return email;
-    }
 }

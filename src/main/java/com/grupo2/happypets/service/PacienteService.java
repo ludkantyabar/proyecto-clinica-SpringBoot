@@ -6,6 +6,7 @@ import com.grupo2.happypets.model.TipoRol;
 import com.grupo2.happypets.repository.PacienteRepository;
 import com.grupo2.happypets.repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,13 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final RolRepository rolRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public PacienteService(PacienteRepository pacienteRepository, RolRepository rolRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
         this.pacienteRepository = pacienteRepository;
         this.rolRepository = rolRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Paciente> obtenerTodosPacientes() {
@@ -32,6 +35,8 @@ public class PacienteService {
         if (pacienteRepository.existsByDni(paciente.getDni())) {
             throw new IllegalArgumentException("El DNI ya está registrado");
         }
+        // Cifrar la contraseña antes de guardar
+        paciente.setPassword(passwordEncoder.encode(paciente.getPassword()));
         return pacienteRepository.save(paciente);
     }
 
@@ -96,6 +101,8 @@ public class PacienteService {
             }
             paciente.setRoles(List.of(rolPaciente));
         }
+        // Cifrar la contraseña antes de guardar
+        paciente.setPassword(passwordEncoder.encode(paciente.getPassword()));
         pacienteRepository.save(paciente);
     }
 }

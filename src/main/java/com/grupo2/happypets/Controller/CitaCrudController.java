@@ -48,6 +48,22 @@ public class CitaCrudController {
         return "citas/formulario";
     }
 
+    // Mostrar formulario tras login
+    @GetMapping("/formulario.html")
+    public String mostrarFormularioCita(Model model) {
+        Cita cita = new Cita();
+        List<Paciente> pacientes = pacienteService.obtenerTodosPacientes();
+        List<Medico> medicos = medicoService.obtenerTodosMedicos();
+        List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
+
+        model.addAttribute("cita", cita);
+        model.addAttribute("pacientes", pacientes);
+        model.addAttribute("medicos", medicos);
+        model.addAttribute("consultorios", consultorios);
+
+        return "citas/formulario";
+    }
+
     // Guardar nueva cita
     @PostMapping("/guardar")
     public String guardarCita(@ModelAttribute("cita") Cita cita) {

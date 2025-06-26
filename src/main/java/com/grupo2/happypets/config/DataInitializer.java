@@ -17,11 +17,15 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (!rolRepository.existsByNombre("ROLE_PACIENTE")) {
-            Rol rol = new Rol();
-            rol.setNombre("ROLE_PACIENTE");
-            rol.setTipoRol(TipoRol.PACIENTE);
-            rolRepository.save(rol);
+        for (TipoRol tipoRol : TipoRol.values()) {
+            String nombreRol = "ROLE_" + tipoRol.name();
+            if (!rolRepository.existsByNombre(nombreRol)) {
+                Rol rol = new Rol();
+                rol.setNombre(nombreRol);
+                rol.setTipoRol(tipoRol);
+                rolRepository.save(rol);
+            }
         }
+        System.out.println("Roles inicializados: " + rolRepository.count());
     }
 }

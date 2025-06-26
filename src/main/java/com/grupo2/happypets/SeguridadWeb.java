@@ -1,4 +1,3 @@
-// src/main/java/com/grupo2/happypets/SeguridadWeb.java
 package com.grupo2.happypets;
 
 import org.springframework.context.annotation.Bean;
@@ -8,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +30,7 @@ public class SeguridadWeb {
                                 "/login",
                                 "/registrar"
                         ).permitAll()
-                        .requestMatchers("/citas/formulario.html").hasRole("PACIENTE") // Solo PACIENTE
+                        .requestMatchers("/citas/formulario.html").hasRole("PACIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -42,5 +43,10 @@ public class SeguridadWeb {
                         .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

@@ -62,7 +62,7 @@ public class IndexController {
     @PostMapping("/registrar")
     public String registrarPaciente(@ModelAttribute Paciente paciente) {
         pacienteService.registrarPaciente(paciente);
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     // Mostrar formulario de login
