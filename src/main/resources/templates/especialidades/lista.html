@@ -3,76 +3,32 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica Salud - Sistema de Gestión</title>
-
-    <!-- Bootstrap CSS -->
+    <title>Clínica Salud - Especialidades</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/especialidades.css}">
 
-    <style>
-        .dashboard-card {
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 100%;
-        }
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .welcome-section {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            border-left: 4px solid;
-            border-radius: 5px;
-        }
-    </style>
 </head>
-
 <body>
-<!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-light" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);">
     <div class="container">
-        <a class="navbar-brand" href="#">
-            <i class="bi bi-heart-pulse"></i> Clínica Salud
+        <a class="navbar-brand text-white fw-bold" href="#">
+            <i class="bi bi-heart-pulse-fill"></i> Clínica Salud
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/}"><i class="bi bi-house-door"></i> Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people"></i> Pacientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/especialidades}"><i class="bi bi-building"></i> Especialidades</a>
-                </li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/}"><i class="bi bi-house-door"></i> Inicio</a></li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a></li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/pacientes}"><i class="bi bi-people"></i> Pacientes</a></li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a></li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a></li>
+                <li class="nav-item"><a class="nav-link text-white" th:href="@{/especialidades}"><i class="bi bi-clipboard2-pulse"></i> Especialidades</a></li>
             </ul>
             <div class="ms-3">
                 <span class="text-white"><i class="bi bi-person-circle"></i> Admin</span>
@@ -81,43 +37,45 @@
     </div>
 </nav>
 
-<div layout:fragment="content">
-    <h2>Lista de Especialidades</h2>
-
-    <!-- Botón Nueva Especialidad solo para ADMIN -->
-    <th:block sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/especialidades/nuevo}" class="btn btn-primary mb-3">Nueva Especialidad</a>
-    </th:block>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="especialidad : ${especialidades}">
-                <td th:text="${especialidad.idEspecialidad}"></td>
-                <td th:text="${especialidad.nombre}"></td>
-                <td th:text="${especialidad.descripcion}"></td>
-                <td>
-                    <th:block sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/especialidades/editar/{id}(id=${especialidad.idEspecialidad})}"
-                           class="btn btn-sm btn-warning">Editar</a>
-                        <a th:href="@{/especialidades/eliminar/{id}(id=${especialidad.idEspecialidad})}"
-                           class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</a>
-                    </th:block>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="container">
+    <h2 class="main-title mt-4"><i class="bi bi-clipboard2-pulse"></i> Lista de Especialidades</h2>
+    <div class="card-table">
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/especialidades/nuevo}" class="btn btn-primary mb-3 icon-btn">
+                <i class="bi bi-plus-circle"></i> Nueva Especialidad
+            </a>
+        </th:block>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="especialidad : ${especialidades}">
+                    <td th:text="${especialidad.idEspecialidad}"></td>
+                    <td th:text="${especialidad.nombre}"></td>
+                    <td th:text="${especialidad.descripcion}"></td>
+                    <td>
+                        <th:block sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/especialidades/editar/{id}(id=${especialidad.idEspecialidad})}" class="btn btn-warning btn-sm icon-btn">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            <a th:href="@{/especialidades/eliminar/{id}(id=${especialidad.idEspecialidad})}" class="btn btn-danger btn-sm icon-btn" onclick="return confirm('¿Está seguro?')">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </a>
+                        </th:block>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-<!-- Footer -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

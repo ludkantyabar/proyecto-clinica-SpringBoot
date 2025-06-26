@@ -1,0 +1,87 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bgMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.card {
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  background: rgba(255,255,255,0.97);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.22);
+}
+
+.card-title {
+  color: #2575fc !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: fadeInDown 1s;
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-30px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+.form-label {
+  color: #2575fc;
+  font-weight: 500;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1.5px solid #eaf1fb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-size: 1.1rem;
+  background: #f8fbff;
+}
+.form-control:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 0 2px #2575fc22;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px #2575fc22;
+  transition: background 0.3s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+  background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+  box-shadow: 0 4px 16px #2575fc33;
+}
+
+a {
+  color: #2575fc;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #6a11cb;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1.2rem !important;
+  }
+  .card-title {
+    font-size: 1.3rem;
+  }
+}
