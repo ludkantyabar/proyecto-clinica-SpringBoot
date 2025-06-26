@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +10,6 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
@@ -80,7 +82,10 @@
 <div layout:fragment="content">
   <h2>Lista de Médicos</h2>
 
-  <a th:href="@{/medicos/nuevo}" class="btn btn-primary mb-3">Nuevo Médico</a>
+  <!-- Botón Nuevo solo para ADMIN -->
+  <th:block sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/medicos/nuevo}" class="btn btn-primary mb-3">Nuevo Médico</a>
+  </th:block>
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -102,8 +107,10 @@
         <td th:text="${medico.especialidad.nombre}"></td>
         <td th:text="${medico.telefono}"></td>
         <td>
-          <a th:href="@{/medicos/editar/{id}(id=${medico.idMedico})}" class="btn btn-sm btn-warning">Editar</a>
-          <a th:href="@{/medicos/eliminar/{id}(id=${medico.idMedico})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</a>
+          <th:block sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/medicos/editar/{id}(id=${medico.idMedico})}" class="btn btn-sm btn-warning">Editar</a>
+            <a th:href="@{/medicos/eliminar/{id}(id=${medico.idMedico})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</a>
+          </th:block>
         </td>
       </tr>
       </tbody>

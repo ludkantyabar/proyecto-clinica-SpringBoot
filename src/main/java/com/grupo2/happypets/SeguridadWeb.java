@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +31,13 @@ public class SeguridadWeb {
                                 "/login",
                                 "/registrar"
                         ).permitAll()
+                        // Permitir solo GET a médicos, consultorios y especialidades para ADMIN y PACIENTE
+                        .requestMatchers(HttpMethod.GET, "/medicos/**", "/consultorios/**", "/especialidades/**")
+                        .hasAnyRole("ADMIN", "PACIENTE")
+                        // Solo ADMIN puede modificar (POST, PUT, DELETE, etc.)
+                        .requestMatchers("/medicos/**", "/consultorios/**", "/especialidades/**")
+                        .hasRole("ADMIN")
+                        // Solo PACIENTE puede acceder al formulario de citas
                         .requestMatchers("/citas/formulario.html").hasRole("PACIENTE")
                         .anyRequest().authenticated()
                 )
