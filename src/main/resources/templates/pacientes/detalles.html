@@ -26,7 +26,7 @@
                     <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people-fill"></i> Pacientes</a>
+                    <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-vcard-fill"></i> Médicos</a>
@@ -49,37 +49,37 @@
     <div class="container">
         <div class="card p-4">
             <div class="card-header mb-3">
-                <h2><i class="bi bi-person-vcard-fill"></i> Detalles del Paciente</h2>
+                <h2><i class="bi bi-person-vcard-fill"></i> Detalles del usuario</h2>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <p><strong><i class="bi bi-credit-card-2-front"></i> DNI:</strong> <span th:text="${paciente.dni}"></span></p>
+                        <p><strong><i class="bi bi-credit-card-2-front"></i> DNI:</strong> <span th:text="${usuario.dni}"></span></p>
                         <p><strong><i class="bi bi-calendar-date"></i> Fecha de Nacimiento:</strong>
-                            <span th:text="${paciente.fechaNacimiento != null} ?
-                                   ${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')} : 'No especificada'"></span></p>
+                            <span th:text="${usuario.fechaNacimiento != null} ?
+                                   ${#temporals.format(usuario.fechaNacimiento, 'dd/MM/yyyy')} : 'No especificada'"></span></p>
                     </div>
                     <div class="col-md-6">
                         <p><strong><i class="bi bi-telephone"></i> Teléfono:</strong>
-                            <span th:text="${paciente.telefono != null && !paciente.telefono.isEmpty()} ?
-                                   ${paciente.telefono} : 'No especificado'"></span></p>
+                            <span th:text="${usuario.telefono != null && !usuario.telefono.isEmpty()} ?
+                                   ${usuario.telefono} : 'No especificado'"></span></p>
                         <p><strong><i class="bi bi-envelope"></i> Email:</strong>
-                            <span th:text="${paciente.email != null && !paciente.email.isEmpty()} ?
-                                   ${paciente.email} : 'No especificado'"></span></p>
+                            <span th:text="${usuario.email != null && !usuario.email.isEmpty()} ?
+                                   ${usuario.email} : 'No especificado'"></span></p>
                     </div>
                 </div>
                 <div class="mb-3">
                     <p><strong><i class="bi bi-geo-alt"></i> Dirección:</strong></p>
-                    <p th:text="${paciente.direccion != null && !paciente.direccion.isEmpty()} ?
-                            ${paciente.direccion} : 'No especificada'"></p>
+                    <p th:text="${usuario.direccion != null && !usuario.direccion.isEmpty()} ?
+                            ${usuario.direccion} : 'No especificada'"></p>
                 </div>
                 <div class="mb-3">
                     <p><strong><i class="bi bi-calendar-check"></i> Fecha de Registro:</strong>
-                        <span th:text="${#temporals.format(paciente.fechaRegistro, 'dd/MM/yyyy HH:mm')}"></span></p>
+                        <span th:text="${#temporals.format(usuario.fechaRegistro, 'dd/MM/yyyy HH:mm')}"></span></p>
                 </div>
             </div>
             <div class="card-footer bg-white">
-                <a th:href="@{/pacientes}" class="btn btn-secondary">
+                <a th:href="@{/usuarios}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left-circle"></i> Volver
                 </a>
             </div>

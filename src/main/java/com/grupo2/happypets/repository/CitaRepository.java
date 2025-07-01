@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Long> {
 
-    List<Cita> findByPacienteDni(String dniPaciente);
+    List<Cita> findByUsuarioDni(String dniUsuario);
 
     List<Cita> findByMedicoDni(String dniMedico);
 
@@ -19,8 +19,8 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
     List<Cita> findByFechaHoraBetweenOrderByFechaHoraAsc(LocalDateTime start, LocalDateTime end);
 
     @Query("SELECT c FROM Cita c WHERE " +
-            "LOWER(c.paciente.nombre) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
-            "LOWER(c.paciente.apellido) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(c.usuario.nombre) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(c.usuario.apellido) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "LOWER(c.medico.nombre) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "LOWER(c.medico.apellido) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "LOWER(c.medico.especialidad.nombre) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")

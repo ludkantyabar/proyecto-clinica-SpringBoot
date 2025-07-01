@@ -31,14 +31,14 @@ public class SeguridadWeb {
                                 "/login",
                                 "/registrar"
                         ).permitAll()
-                        // Permitir solo GET a médicos, consultorios y especialidades para ADMIN y PACIENTE
+                        // Permitir solo GET a médicos, consultorios y especialidades para ADMIN y USUARIO
                         .requestMatchers(HttpMethod.GET, "/medicos/**", "/consultorios/**", "/especialidades/**")
-                        .hasAnyRole("ADMIN", "PACIENTE")
+                        .hasAnyRole("ADMIN", "USUARIO")
                         // Solo ADMIN puede modificar (POST, PUT, DELETE, etc.)
                         .requestMatchers("/medicos/**", "/consultorios/**", "/especialidades/**")
                         .hasRole("ADMIN")
-                        // Solo PACIENTE puede acceder al formulario de citas
-                        .requestMatchers("/citas/formulario.html").hasRole("PACIENTE")
+                        // Solo USUARIO puede acceder al formulario de citas
+                        .requestMatchers("/citas/formulario.html").hasRole("USUARIO")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

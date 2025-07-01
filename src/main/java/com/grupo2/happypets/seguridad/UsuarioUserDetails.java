@@ -1,34 +1,34 @@
 package com.grupo2.happypets.seguridad;
 
-import com.grupo2.happypets.model.Paciente;
+import com.grupo2.happypets.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
-public class PacienteUserDetails implements UserDetails {
+public class UsuarioUserDetails implements UserDetails {
 
-    private final Paciente paciente;
+    private final Usuario usuario;
 
-    public PacienteUserDetails(Paciente paciente) {
-        this.paciente = paciente;
+    public UsuarioUserDetails(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return paciente.getRoles().stream()
+        return usuario.getRoles().stream()
                 .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getTipoRol().name()))
                 .toList();
     }
 
     @Override
     public String getPassword() {
-        return paciente.getPassword();
+        return usuario.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return paciente.getDni();
+        return usuario.getDni();
     }
 
     @Override

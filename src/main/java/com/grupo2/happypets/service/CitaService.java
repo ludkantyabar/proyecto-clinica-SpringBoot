@@ -85,9 +85,9 @@ public class CitaService {
                         "Por favor, presentese 15 minutos antes.\n" +
                         "En caso de no asistir, avise con anticipación.\n" +
                         "----------------------------------------",
-                cita.getPaciente().getDni(),
-                cita.getPaciente().getNombre(),
-                cita.getPaciente().getApellido(),
+                cita.getUsuario().getDni(),
+                cita.getUsuario().getNombre(),
+                cita.getUsuario().getApellido(),
                 cita.getMedico().getEspecialidad().getNombre(),
                 cita.getMedico().getNombre(),
                 cita.getMedico().getApellido(),
@@ -115,12 +115,12 @@ public class CitaService {
     }
 
     /**
-     * Obtiene citas por DNI de paciente
-     * @param dniPaciente DNI del paciente
-     * @return Lista de citas del paciente
+     * Obtiene citas por DNI de Usuario
+     * @param dniUsuario DNI del Usuario
+     * @return Lista de citas del Usuario
      */
-    public List<Cita> obtenerCitasPorPaciente(String dniPaciente) {
-        return citaRepository.findByPacienteDni(dniPaciente);
+    public List<Cita> obtenerCitasPorUsuario(String dniUsuario) {
+        return citaRepository.findByUsuarioDni(dniUsuario);
     }
 
     /**

@@ -20,7 +20,7 @@ public class Rol {
     private TipoRol tipoRol;
 
     @ManyToMany(mappedBy = "roles")
-    private Collection<Paciente> pacientes;
+    private Collection<Usuario> usuarios;
 
     // Constructor que acepta solo el nombre
     public Rol(String nombre) {

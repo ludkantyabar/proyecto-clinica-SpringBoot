@@ -1,7 +1,5 @@
 package com.grupo2.happypets.model;
 
-import com.grupo2.happypets.model.Cita;
-import com.grupo2.happypets.model.Rol;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -10,15 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import com.grupo2.happypets.validation.UniqueDni;
 
 @Data
 @Entity
-@Table(name = "pacientes", uniqueConstraints = @UniqueConstraint(columnNames = "dni"))
-public class Paciente {
+@Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "dni"))
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaciente;
+    private Long idUsuario;
 
     @NotBlank(message = "El DNI es obligatorio")
     @Size(min = 8, max = 12, message = "El DNI debe tener entre 8 y 12 caracteres")
@@ -51,18 +48,16 @@ public class Paciente {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "paciente_roles",
-            joinColumns = @JoinColumn(name = "paciente_id"),
+            name = "usuario_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-
     private Collection<Rol> roles;
 
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime fechaRegistro;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cita> citas;
-
 }

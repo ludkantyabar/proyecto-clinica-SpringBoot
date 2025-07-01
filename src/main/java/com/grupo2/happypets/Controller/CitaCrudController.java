@@ -17,7 +17,7 @@ public class CitaCrudController {
     private CitaService citaService;
 
     @Autowired
-    private PacienteService pacienteService;
+    private UsuarioService usuarioService;
 
     @Autowired
     private MedicoService medicoService;
@@ -36,7 +36,7 @@ public class CitaCrudController {
     @GetMapping("/nueva")
     public String mostrarFormularioNuevaCita(Model model) {
         Cita cita = new Cita();
-        List<Paciente> pacientes = pacienteService.obtenerTodosPacientes();
+        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 
@@ -52,7 +52,7 @@ public class CitaCrudController {
     @GetMapping("/formulario.html")
     public String mostrarFormularioCita(Model model) {
         Cita cita = new Cita();
-        List<Paciente> pacientes = pacienteService.obtenerTodosPacientes();
+        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 
@@ -75,7 +75,7 @@ public class CitaCrudController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarCita(@PathVariable Long id, Model model) {
         Cita cita = citaService.obtenerCitaPorId(id);
-        List<Paciente> pacientes = pacienteService.obtenerTodosPacientes();
+        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 

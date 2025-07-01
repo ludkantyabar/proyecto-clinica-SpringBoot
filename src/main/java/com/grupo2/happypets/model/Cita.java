@@ -17,8 +17,8 @@ public class Cita {
 
     @NotNull(message = "El paciente es obligatorio")
     @ManyToOne
-    @JoinColumn(name = "id_paciente", nullable = false)
-    private Paciente paciente;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
     @NotNull(message = "El médico es obligatorio")
     @ManyToOne

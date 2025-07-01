@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-  <title>Lista de Pacientes</title>
+  <title>Lista de usuarios</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clínica Salud - Sistema de Gestión</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" th:href="@{/css/pacientes.css}">
+  <link rel="stylesheet" th:href="@{/css/Pacientes.css}">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
@@ -27,7 +27,7 @@
           <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people-fill"></i> Pacientes</a>
+          <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> usuarios</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-vcard-fill"></i> Médicos</a>
@@ -50,15 +50,15 @@
   <div class="container">
     <div class="card p-4">
       <div class="card-header mb-3">
-        <h2><i class="bi bi-people-fill"></i> Lista de Pacientes</h2>
+        <h2><i class="bi bi-people-fill"></i> Lista de usuarios</h2>
       </div>
       <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
       <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-      <form th:action="@{/pacientes}" method="get" class="mb-4">
+      <form th:action="@{/usuarios}" method="get" class="mb-4">
         <div class="input-group">
-          <input type="text" name="search" class="form-control" placeholder="Buscar pacientes..." th:value="${param.search}">
+          <input type="text" name="search" class="form-control" placeholder="Buscar usuarios..." th:value="${param.search}">
           <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Buscar</button>
-          <a th:href="@{/pacientes}" class="btn btn-secondary"><i class="bi bi-eraser"></i> Limpiar</a>
+          <a th:href="@{/usuarios}" class="btn btn-secondary"><i class="bi bi-eraser"></i> Limpiar</a>
         </div>
       </form>
       <div class="table-responsive">
@@ -74,21 +74,21 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="paciente : ${pacientes}">
-            <td th:text="${paciente.idPaciente}"></td>
-            <td th:text="${paciente.dni}"></td>
-            <td th:text="${paciente.nombre + ' ' + paciente.apellido}"></td>
-            <td th:text="${paciente.telefono}"></td>
-            <td th:text="${paciente.email}"></td>
+          <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.idusuario}"></td>
+            <td th:text="${usuario.dni}"></td>
+            <td th:text="${usuario.nombre + ' ' + usuario.apellido}"></td>
+            <td th:text="${usuario.telefono}"></td>
+            <td th:text="${usuario.email}"></td>
             <td>
-              <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}" class="btn btn-sm btn-warning" title="Editar">
+              <a th:href="@{/usuarios/editar/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-warning" title="Editar">
                 <i class="bi bi-pencil-square"></i>
               </a>
-              <a th:href="@{/pacientes/eliminar/{id}(id=${paciente.idPaciente})}" class="btn btn-sm btn-danger" title="Eliminar"
-                 onclick="return confirm('¿Está seguro que desea eliminar este paciente?')">
+              <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-danger" title="Eliminar"
+                 onclick="return confirm('¿Está seguro que desea eliminar este usuario?')">
                 <i class="bi bi-trash3"></i>
               </a>
-              <a th:href="@{/pacientes/detalles/{id}(id=${paciente.idPaciente})}" class="btn btn-sm btn-info" title="Detalles">
+              <a th:href="@{/usuarios/detalles/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-info" title="Detalles">
                 <i class="bi bi-eye-fill"></i>
               </a>
             </td>
