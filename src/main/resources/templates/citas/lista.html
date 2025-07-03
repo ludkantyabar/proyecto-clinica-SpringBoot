@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <title>Lista de usuarios</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica Salud - Sistema de Gestión</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" th:href="@{/css/citas.css}">
-
-
 </head>
 <body>
-<!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" href="#">
-            <i class="bi bi-heart-pulse"></i> Clínica Salud
+        <a class="navbar-brand" th:href="@{/}">
+            <i class="bi bi-heart-pulse-fill"></i> Clínica Salud
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -27,22 +21,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/}"><i class="bi bi-house-door"></i> Inicio</a>
+                    <a class="nav-link active" th:href="@{/}"><i class="bi bi-house-fill"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
+                    <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people"></i> Pacientes</a>
+                    <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
+                    <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-vcard-fill"></i> Médicos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a>
+                    <a class="nav-link" th:href="@{/consultorios}"><i class="bi bi-hospital-fill"></i> Consultorios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/especialidades}"><i class="bi bi-building"></i> Especialidades</a>
+                    <a class="nav-link" th:href="@{/especialidades}"><i class="bi bi-award-fill"></i> Especialidades</a>
                 </li>
             </ul>
             <div class="ms-3">
@@ -51,43 +45,60 @@
         </div>
     </div>
 </nav>
+
 <div layout:fragment="content">
-    <h2>Lista de Citas Médicas</h2>
-
-    <a th:href="@{/citas/nueva}" class="btn btn-primary mb-3">Nueva Cita</a>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Paciente</th>
-                <th>Médico</th>
-                <th>Especialidad</th>
-                <th>Fecha/Hora</th>
-                <th>Consultorio</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="cita : ${citas}">
-                <td th:text="${cita.idCita}"></td>
-                <td th:text="${cita.paciente.nombre + ' ' + cita.paciente.apellido}"></td>
-                <td th:text="'Dr. ' + ${cita.medico.nombre} + ' ' + ${cita.medico.apellido}"></td>
-                <td th:text="${cita.medico.especialidad.nombre}"></td>
-                <td th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${cita.consultorio.codigo}"></td>
-                <td>
-                    <a th:href="@{/citas/editar/{id}(id=${cita.idCita})}" class="btn btn-sm btn-warning">Editar</a>
-                    <a th:href="@{/citas/eliminar/{id}(id=${cita.idCita})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</a>
-                    <a th:href="@{/citas/ticket/{id}(id=${cita.idCita})}" class="btn btn-sm btn-info" target="_blank">Ticket</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="card p-4">
+            <div class="card-header mb-3">
+                <h2><i class="bi bi-people-fill"></i> Lista de usuarios</h2>
+            </div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <form th:action="@{/usuarios}" method="get" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar usuarios..." th:value="${param.search}">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Buscar</button>
+                    <a th:href="@{/usuarios}" class="btn btn-secondary"><i class="bi bi-eraser"></i> Limpiar</a>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                    <tr>
+                        <th><i class="bi bi-hash"></i> ID</th>
+                        <th><i class="bi bi-credit-card-2-front"></i> DNI</th>
+                        <th><i class="bi bi-person"></i> Nombre</th>
+                        <th><i class="bi bi-telephone"></i> Teléfono</th>
+                        <th><i class="bi bi-envelope"></i> Email</th>
+                        <th><i class="bi bi-gear"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.idUsuario}"></td>
+                        <td th:text="${usuario.dni}"></td>
+                        <td th:text="${usuario.nombre + ' ' + usuario.apellido}"></td>
+                        <td th:text="${usuario.telefono}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td>
+                            <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-warning" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-danger" title="Eliminar"
+                               onclick="return confirm('¿Está seguro que desea eliminar este usuario?')">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                            <a th:href="@{/usuarios/detalles/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-info" title="Detalles">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<!-- Footer -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

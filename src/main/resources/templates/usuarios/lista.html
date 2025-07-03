@@ -27,7 +27,7 @@
           <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> usuarios</a>
+          <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> Pacientes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-vcard-fill"></i> Médicos</a>
@@ -75,20 +75,20 @@
           </thead>
           <tbody>
           <tr th:each="usuario : ${usuarios}">
-            <td th:text="${usuario.idusuario}"></td>
+            <td th:text="${usuario.idUsuario}"></td>
             <td th:text="${usuario.dni}"></td>
             <td th:text="${usuario.nombre + ' ' + usuario.apellido}"></td>
             <td th:text="${usuario.telefono}"></td>
             <td th:text="${usuario.email}"></td>
             <td>
-              <a th:href="@{/usuarios/editar/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-warning" title="Editar">
+              <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-warning" title="Editar">
                 <i class="bi bi-pencil-square"></i>
               </a>
-              <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-danger" title="Eliminar"
+              <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-danger" title="Eliminar"
                  onclick="return confirm('¿Está seguro que desea eliminar este usuario?')">
                 <i class="bi bi-trash3"></i>
               </a>
-              <a th:href="@{/usuarios/detalles/{id}(id=${usuario.idusuario})}" class="btn btn-sm btn-info" title="Detalles">
+              <a th:href="@{/usuarios/detalles/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-info" title="Detalles">
                 <i class="bi bi-eye-fill"></i>
               </a>
             </td>

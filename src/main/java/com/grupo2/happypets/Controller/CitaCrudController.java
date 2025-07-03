@@ -36,12 +36,12 @@ public class CitaCrudController {
     @GetMapping("/nueva")
     public String mostrarFormularioNuevaCita(Model model) {
         Cita cita = new Cita();
-        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
+        List<Usuario> usuarios = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 
         model.addAttribute("cita", cita);
-        model.addAttribute("pacientes", pacientes);
+        model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
         model.addAttribute("consultorios", consultorios);
 
@@ -52,12 +52,12 @@ public class CitaCrudController {
     @GetMapping("/formulario.html")
     public String mostrarFormularioCita(Model model) {
         Cita cita = new Cita();
-        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
+        List<Usuario> usuarios = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 
         model.addAttribute("cita", cita);
-        model.addAttribute("pacientes", pacientes);
+        model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
         model.addAttribute("consultorios", consultorios);
 
@@ -75,12 +75,12 @@ public class CitaCrudController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarCita(@PathVariable Long id, Model model) {
         Cita cita = citaService.obtenerCitaPorId(id);
-        List<Usuario> pacientes = usuarioService.obtenerTodosUsuarios();
+        List<Usuario> usuarios = usuarioService.obtenerTodosUsuarios();
         List<Medico> medicos = medicoService.obtenerTodosMedicos();
         List<Consultorio> consultorios = consultorioService.obtenerTodosConsultorios();
 
         model.addAttribute("cita", cita);
-        model.addAttribute("pacientes", pacientes);
+        model.addAttribute("usuarios", usuarios);
         model.addAttribute("medicos", medicos);
         model.addAttribute("consultorios", consultorios);
 

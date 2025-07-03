@@ -43,7 +43,7 @@
           <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/pacientes}"><i class="bi bi-people"></i> Pacientes</a>
+          <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people"></i> Pacientes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
@@ -75,11 +75,11 @@
       </div>
       <div class="mb-2">
         <span class="fw-bold">DNI:</span>
-        <span th:text="${ticket.cita.paciente.dni}"></span>
+        <span th:text="${ticket.cita.usuario.dni}"></span>
       </div>
       <div class="mb-2">
         <span class="fw-bold">Nombre:</span>
-        <span th:text="${ticket.cita.paciente.nombre + ' ' + ticket.cita.paciente.apellido}"></span>
+        <span th:text="${ticket.cita.usuario.nombre + ' ' + ticket.cita.usuario.apellido}"></span>
       </div>
       <div class="mb-2">
         <span class="fw-bold">Especialidad:</span>
