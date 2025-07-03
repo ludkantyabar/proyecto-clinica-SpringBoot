@@ -1,6 +1,9 @@
 package com.grupo2.happypets.Controller;
 
 import com.grupo2.happypets.model.Usuario;
+import com.grupo2.happypets.model.Rol;
+import com.grupo2.happypets.model.TipoRol;
+import com.grupo2.happypets.repository.RolRepository;
 import com.grupo2.happypets.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,12 @@ import java.util.List;
 public class UsuarioCrudController {
 
     private final UsuarioService usuarioService;
+    private final RolRepository rolRepository;
 
     @Autowired
-    public UsuarioCrudController(UsuarioService usuarioService) {
+    public UsuarioCrudController(UsuarioService usuarioService, RolRepository rolRepository) {
         this.usuarioService = usuarioService;
+        this.rolRepository = rolRepository;
     }
 
     @GetMapping
@@ -48,17 +53,21 @@ public class UsuarioCrudController {
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
                                  BindingResult result,
+                                 @RequestParam("rol") String rolNombre,
                                  RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             return "usuarios/formulario";
         }
 
-        // Validar que el DNI sea único
         if (usuarioService.existeUsuarioConDni(usuario.getDni(), usuario.getIdUsuario())) {
             result.rejectValue("dni", "error.usuario", "Ya existe un usuario con este DNI");
             return "usuarios/formulario";
         }
+
+        Rol rol = rolRepository.findByTipoRol(TipoRol.valueOf(rolNombre));
+        usuario.getRoles().clear();
+        usuario.getRoles().add(rol);
 
         usuarioService.guardarUsuario(usuario);
 
