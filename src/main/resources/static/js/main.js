@@ -1,14 +1,14 @@
 // Espera a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
     // Listener para el botón "Registrar Paciente" y carga del formulario en el modal
-    const btnRegistrar = document.getElementById('btnRegistrarPaciente');
+    const btnRegistrar = document.getElementById('btnRegistrarUsuario');
     if (btnRegistrar) {
         btnRegistrar.addEventListener('click', function (e) {
             e.preventDefault();
             fetch('/registrar', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                 .then(response => response.text())
                 .then(html => {
-                    const modalBody = document.getElementById('modalRegistrarPacienteBody');
+                    const modalBody = document.getElementById('modalRegistrarUsuarioBody');
                     if (modalBody) {
                         modalBody.innerHTML = html;
                     }
