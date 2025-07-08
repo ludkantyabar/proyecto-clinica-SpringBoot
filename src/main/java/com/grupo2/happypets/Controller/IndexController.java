@@ -90,4 +90,8 @@ public class IndexController {
     public String mostrarFormularioLogin() {
         return "login";
     }
+    @GetMapping("/index.html")
+    public String indexHtml(Model model) {
+        return index(model);
+    }
 }

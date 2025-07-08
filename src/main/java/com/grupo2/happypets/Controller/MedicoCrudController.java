@@ -50,4 +50,9 @@ public class MedicoCrudController {
         medicoService.eliminarMedico(id);
         return "redirect:/medicos";
     }
+    @GetMapping("/formulario.html")
+    public String medicoFormulario(Model model) {
+        model.addAttribute("medico", new Medico()); // o el objeto que corresponda
+        return "medicos/formulario";
+    }
 }

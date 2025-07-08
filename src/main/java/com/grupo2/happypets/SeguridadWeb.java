@@ -9,7 +9,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import java.io.IOException;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -21,9 +28,10 @@ public class SeguridadWeb {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Recursos públicos
                         .requestMatchers(
-                                "/index.html",
                                 "/",
+                                "/index.html",
                                 "/api/public/**",
                                 "/css/**",
                                 "/js/**",
@@ -31,19 +39,20 @@ public class SeguridadWeb {
                                 "/login",
                                 "/registrar"
                         ).permitAll()
-                        // Permitir solo GET a médicos, consultorios y especialidades para ADMIN y USUARIO
-                        .requestMatchers(HttpMethod.GET, "/medicos/**", "/consultorios/**", "/especialidades/**")
-                        .hasAnyRole("ADMIN", "USUARIO")
-                        // Solo ADMIN puede modificar (POST, PUT, DELETE, etc.)
-                        .requestMatchers("/medicos/**", "/consultorios/**", "/especialidades/**")
-                        .hasRole("ADMIN")
-                        // Solo USUARIO puede acceder al formulario de citas
-                        .requestMatchers("/citas/formulario.html").hasRole("USUARIO")
+                        // Permitir acceso a /citas/** a ADMIN y USUARIO
+                        .requestMatchers("/citas/**").hasAnyRole("ADMIN", "USUARIO")
+                        .requestMatchers(
+                                "/consultorios/**",
+                                "/especialidades/**",
+                                "/usuarios/**"
+                        ).hasRole("ADMIN")
+                        .requestMatchers("/medicos/**").hasAnyRole("ADMIN", "MEDICO")
+                        // Cualquier otra petición requiere autenticación
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/citas/formulario.html", true)
+                        .successHandler(customSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -51,6 +60,24 @@ public class SeguridadWeb {
                         .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                Authentication authentication) throws IOException, ServletException {
+                Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                if (roles.contains("ROLE_MEDICO")) {
+                    response.sendRedirect("/medicos/formulario.html");
+                } else if (roles.contains("ROLE_USUARIO")) {
+                    response.sendRedirect("/citas/formulario.html");
+                } else {
+                    response.sendRedirect("/index.html");
+                }
+            }
+        };
     }
 
     @Bean
