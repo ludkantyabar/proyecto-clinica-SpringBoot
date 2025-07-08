@@ -1,0 +1,11 @@
+INSERT INTO especialidades (id_especialidad, descripcion, nombre) VALUES
+(1, 'Diagnóstico y tratamiento de enfermedades del corazón', 'Cardiología'),
+(2, 'Cuidado de la salud de la mujer y sistema reproductivo', 'Ginecología'),
+(3, 'Atención médica para bebés, niños y adolescentes', 'Pediatría'),
+(4, 'Diagnóstico y tratamiento de trastornos de la piel', 'Dermatología'),
+(5, 'Tratamiento de problemas del sistema nervioso', 'Neurología'),
+(6, 'Enfermedades del sistema digestivo', 'Gastroenterología'),
+(7, 'Problemas de huesos, articulaciones y músculos', 'Ortopedia'),
+(8, 'Salud visual y tratamiento de enfermedades oculares', 'Oftalmología'),
+(9, 'Atención de problemas de salud mental', 'Psiquiatría'),
+(10, 'Diagnóstico por imágenes médicas', 'Radiología');

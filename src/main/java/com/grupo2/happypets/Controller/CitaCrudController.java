@@ -64,11 +64,20 @@ public class CitaCrudController {
         return "citas/formulario";
     }
 
-    // Guardar nueva cita
+    // Guardar nueva cita y redirigir al ticket, mostrando error si la validación falla
     @PostMapping("/guardar")
-    public String guardarCita(@ModelAttribute("cita") Cita cita) {
-        citaService.guardarCita(cita);
-        return "redirect:/citas";
+    public String guardarCita(@ModelAttribute("cita") Cita cita, Model model) {
+        try {
+            Cita citaGuardada = citaService.guardarCita(cita);
+            return "redirect:/citas/ticket/" + citaGuardada.getIdCita();
+        } catch (Exception ex) {
+            model.addAttribute("error", "La fecha y hora debe estar en el futuro.");
+            model.addAttribute("usuarios", usuarioService.obtenerTodosUsuarios());
+            model.addAttribute("medicos", medicoService.obtenerTodosMedicos());
+            model.addAttribute("consultorios", consultorioService.obtenerTodosConsultorios());
+            model.addAttribute("cita", cita);
+            return "citas/formulario";
+        }
     }
 
     // Mostrar formulario para editar cita
@@ -101,5 +110,4 @@ public class CitaCrudController {
         model.addAttribute("ticket", ticket);
         return "citas/ticket";
     }
-
 }

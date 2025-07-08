@@ -70,7 +70,7 @@ public class SeguridadWeb {
                                                 Authentication authentication) throws IOException, ServletException {
                 Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                 if (roles.contains("ROLE_MEDICO")) {
-                    response.sendRedirect("/medicos/formulario.html");
+                    response.sendRedirect("/medicos/lista.html");
                 } else if (roles.contains("ROLE_USUARIO")) {
                     response.sendRedirect("/citas/formulario.html");
                 } else {

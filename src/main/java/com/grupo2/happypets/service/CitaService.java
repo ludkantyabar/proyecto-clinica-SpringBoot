@@ -24,38 +24,24 @@ public class CitaService {
         this.ticketRepository = ticketRepository;
     }
 
-    /**
-     * Obtiene todas las citas registradas
-     * @return Lista de citas
-     */
     public List<Cita> obtenerTodasCitas() {
         return citaRepository.findAll();
     }
 
     /**
-     * Guarda o actualiza una cita
+     * Guarda o actualiza una cita y retorna la entidad guardada
      * @param cita Entidad Cita a guardar
+     * @return Cita guardada con ID asignado
      */
-    public void guardarCita(Cita cita) {
-        citaRepository.save(cita);
+    public Cita guardarCita(Cita cita) {
+        return citaRepository.save(cita);
     }
 
-    /**
-     * Obtiene una cita por su ID
-     * @param id ID de la cita
-     * @return Entidad Cita encontrada
-     * @throws RuntimeException si no se encuentra la cita
-     */
     public Cita obtenerCitaPorId(Long id) {
         return citaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + id));
     }
 
-    /**
-     * Elimina una cita por su ID
-     * @param id ID de la cita a eliminar
-     * @throws RuntimeException si no se encuentra la cita
-     */
     public void eliminarCita(Long id) {
         if (!citaRepository.existsById(id)) {
             throw new RuntimeException("Cita no encontrada con ID: " + id);
@@ -63,11 +49,6 @@ public class CitaService {
         citaRepository.deleteById(id);
     }
 
-    /**
-     * Genera un ticket para una cita específica
-     * @param id ID de la cita
-     * @return Ticket generado
-     */
     public Ticket generarTicket(Long id) {
         Cita cita = obtenerCitaPorId(id);
 
@@ -103,9 +84,6 @@ public class CitaService {
         return ticketRepository.save(ticket);
     }
 
-    /**
-     * Métodos adicionales para el dashboard
-     */
     public long countCitasBetween(LocalDateTime start, LocalDateTime end) {
         return citaRepository.countByFechaHoraBetween(start, end);
     }
@@ -114,20 +92,10 @@ public class CitaService {
         return citaRepository.findByFechaHoraBetweenOrderByFechaHoraAsc(start, end);
     }
 
-    /**
-     * Obtiene citas por DNI de Usuario
-     * @param dniUsuario DNI del Usuario
-     * @return Lista de citas del Usuario
-     */
     public List<Cita> obtenerCitasPorUsuario(String dniUsuario) {
         return citaRepository.findByUsuarioDni(dniUsuario);
     }
 
-    /**
-     * Obtiene citas por DNI de médico
-     * @param dniMedico DNI del médico
-     * @return Lista de citas del médico
-     */
     public List<Cita> obtenerCitasPorMedico(String dniMedico) {
         return citaRepository.findByMedicoDni(dniMedico);
     }

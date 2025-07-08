@@ -1,0 +1,11 @@
+INSERT INTO consultorios (id_consultorio, codigo, descripcion, ubicacion) VALUES
+(1, 'CARD-01', 'Consultorio de Cardiología equipado con electrocardiógrafo de 12 derivaciones, monitor Holter y área de prueba de esfuerzo', 'Edificio Principal - Piso 1, Ala Cardiovascular, Sala 101B'),
+(2, 'GIN-02', 'Consultorio Gineco-Obstétrico con ecógrafo Doppler fetal, colposcopio y unidad de procedimientos menores', 'Torre de Especialidades - Piso 3, Sala 310 (acceso restringido)'),
+(3, 'PED-03', 'Consultorio Pediátrico con área de juegos terapéuticos, balanza infantil digital y tallímetro pediátrico', 'Planta Baja - Sector Pediátrico, Sala PB-05'),
+(4, 'DERM-04', 'Consultorio Dermatológico con lámpara de Wood, crioterapia y unidad de cirugía dermatológica ambulatoria', 'Edificio Principal - Piso 2, Ala Dermatología, Sala 207'),
+(5, 'NEURO-05', 'Consultorio Neurológico con equipo de electromiografía (EMG), sistema de potenciales evocados y área de evaluación cognitiva', 'Torre de Diagnóstico - Piso 4, Sala 403'),
+(6, 'GASTRO-06', 'Consultorio Gastroenterológico con videocolonoscopio HD, cápsula endoscópica y unidad de pHmetría esofágica', 'Área de Endoscopias - Piso 1, Bloque Quirúrgico, Sala E-102'),
+(7, 'ORTOP-07', 'Consultorio Ortopédico con arco en C para fluoroscopia, mesa de tracción y unidad de infiltraciones guiadas por ultrasonido', 'Edificio de Rehabilitación - Piso 2, Sala ORTOP-2'),
+(8, 'OFT-08', 'Consultorio Oftalmológico con autorefractómetro digital, topómetro corneal y unidad de fotocoagulación láser', 'Torre de Especialidades - Piso 5, Sala 508 (zona baja visión)'),
+(9, 'PSIQ-09', 'Consultorio Psiquiátrico con sala de terapia multisensorial, equipo de biofeedback y área de entrevista familiar', 'Edificio de Salud Mental - Piso 1, Sala SM-03 (insonorizada)'),
+(10, 'RAD-10', 'Consultorio Radiológico con blindaje plomado, sistema CR de procesamiento digital y unidad portátil para UCI', 'Área de Diagnóstico por Imágenes - Sótano Técnico, Sala RAD-01');
