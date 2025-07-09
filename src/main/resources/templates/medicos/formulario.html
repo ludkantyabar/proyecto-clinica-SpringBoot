@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,27 +24,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#"><i class="bi bi-house-door"></i> Inicio</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN') or hasRole('USER')">
+                    <a class="nav-link text-white" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar-check"></i> Citas</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN') or hasRole('MEDICO')">
+                    <a class="nav-link text-white" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people"></i> Pacientes</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-white" th:href="@{/}"><i class="bi bi-house-door"></i> Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-badge"></i> Médicos</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-white" th:href="@{/usuarios}"><i class="bi bi-people"></i> Pacientes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-white" th:href="@{/consultorios}"><i class="bi bi-building"></i> Consultorios</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/especialidades}"><i class="bi bi-building"></i> Especialidades</a>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-white" th:href="@{/especialidades}"><i class="bi bi-clipboard2-pulse"></i> Especialidades</a>
                 </li>
             </ul>
-            <div class="ms-3">
-                <span class="text-white"><i class="bi bi-person-circle"></i> Admin</span>
+            <div class="ms-3 d-flex align-items-center gap-2">
+  <span class="text-white">
+    <i class="bi bi-person-circle"></i>
+    <span th:text="${#authentication.name}">Usuario</span>
+  </span>
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                    </button>
+                </form>
             </div>
         </div>
     </div>
