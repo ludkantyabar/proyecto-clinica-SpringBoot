@@ -37,17 +37,16 @@
   </div>
 </nav>
 
+<!-- ...contenido... -->
 <div class="container">
   <h2 class="main-title mt-4"><i class="bi bi-person-badge"></i> Lista de Médicos</h2>
-  <div class="card-table">
-    <th:block sec:authorize="hasRole('ADMIN')">
-      <a th:href="@{/medicos/nuevo}" class="btn btn-primary mb-3 icon-btn">
-        <i class="bi bi-plus-circle"></i> Nuevo Médico
-      </a>
-    </th:block>
+  <div class="card-table shadow-lg">
+    <a th:href="@{/medicos/nuevo}" class="btn btn-primary mb-3 icon-btn">
+      <i class="bi bi-plus-circle"></i> Nuevo Médico
+    </a>
     <div class="table-responsive">
-      <table class="table align-middle">
-        <thead>
+      <table class="table align-middle table-hover">
+        <thead class="table-primary">
         <tr>
           <th>ID</th>
           <th>DNI</th>
@@ -65,14 +64,12 @@
           <td th:text="${medico.especialidad.nombre}"></td>
           <td th:text="${medico.telefono}"></td>
           <td>
-            <th:block sec:authorize="hasRole('ADMIN')">
-              <a th:href="@{/medicos/editar/{id}(id=${medico.idMedico})}" class="btn btn-warning btn-sm icon-btn">
-                <i class="bi bi-pencil-square"></i> Editar
-              </a>
-              <a th:href="@{/medicos/eliminar/{id}(id=${medico.idMedico})}" class="btn btn-danger btn-sm icon-btn" onclick="return confirm('¿Está seguro?')">
-                <i class="bi bi-trash"></i> Eliminar
-              </a>
-            </th:block>
+            <a th:href="@{/medicos/editar/{id}(id=${medico.idMedico})}" class="btn btn-warning btn-sm icon-btn">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+            <a th:href="@{/medicos/eliminar/{id}(id=${medico.idMedico})}" class="btn btn-danger btn-sm icon-btn" onclick="return confirm('¿Está seguro?')">
+              <i class="bi bi-trash"></i>
+            </a>
           </td>
         </tr>
         </tbody>
@@ -80,6 +77,9 @@
     </div>
   </div>
 </div>
+<!-- ...código posterior... -->
+
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

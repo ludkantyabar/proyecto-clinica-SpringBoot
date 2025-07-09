@@ -57,6 +57,15 @@
                 <input type="password" th:field="*{password}" class="form-control" required/>
             </div>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Rol:</label>
+            <select name="rol" class="form-control" required>
+                <option value="" disabled selected>Selecciona un rol</option>
+                <option value="USUARIO">Usuario</option>
+                <option value="MEDICO">Médico</option>
+                <option value="ADMIN">Administrador</option>
+            </select>
+        </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Registrar</button>
         </div>
