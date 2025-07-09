@@ -74,6 +74,11 @@ public class CitaService {
     public Ticket generarTicket(Long id) {
         Cita cita = obtenerCitaPorId(id);
 
+        // Validar si ya existe un ticket para esta cita
+        if (ticketRepository.findByCita_IdCita(id).isPresent()) {
+            throw new IllegalStateException("Ya existe un ticket para esta cita.");
+        }
+
         String contenidoTicket = String.format(
                 "CLÍNICA SALUD\n" +
                         "Ticket de Cita Médica\n" +
@@ -120,5 +125,9 @@ public class CitaService {
 
     public List<Cita> obtenerCitasPorMedico(String dniMedico) {
         return citaRepository.findByMedicoDni(dniMedico);
+    }
+
+    public Ticket obtenerTicketPorCitaId(Long idCita) {
+        return ticketRepository.findByCita_IdCita(idCita).orElse(null);
     }
 }

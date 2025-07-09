@@ -111,5 +111,15 @@ public class CitaCrudController {
         model.addAttribute("ticket", ticket);
         return "citas/ticket";
     }
+    @GetMapping("/ver-ticket/{id}")
+    public String verTicket(@PathVariable Long id, Model model) {
+        Ticket ticket = citaService.obtenerTicketPorCitaId(id);
+        if (ticket == null) {
+            model.addAttribute("error", "No existe ticket para esta cita.");
+            return "redirect:/citas";
+        }
+        model.addAttribute("ticket", ticket);
+        return "citas/ticket";
+    }
 
 }
