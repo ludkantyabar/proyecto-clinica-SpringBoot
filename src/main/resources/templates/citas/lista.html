@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <title>Lista de usuarios</title>
+    <title>Lista de citas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica Salud - Sistema de Gestión</title>
@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/}"><i class="bi bi-house-fill"></i> Inicio</a>
+                    <a class="nav-link" th:href="@{/}"><i class="bi bi-house-fill"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
+                    <a class="nav-link active" th:href="@{/citas}"><i class="bi bi-calendar2-check-fill"></i> Citas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> usuarios</a>
+                    <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people-fill"></i> Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/medicos}"><i class="bi bi-person-vcard-fill"></i> Médicos</a>
@@ -50,45 +50,47 @@
     <div class="container">
         <div class="card p-4">
             <div class="card-header mb-3">
-                <h2><i class="bi bi-people-fill"></i> Lista de usuarios</h2>
+                <h2><i class="bi bi-calendar2-check-fill"></i> Lista de citas</h2>
             </div>
             <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
             <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-            <form th:action="@{/usuarios}" method="get" class="mb-4">
+            <form th:action="@{/citas}" method="get" class="mb-4">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Buscar usuarios..." th:value="${param.search}">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar citas..." th:value="${param.search}">
                     <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Buscar</button>
-                    <a th:href="@{/usuarios}" class="btn btn-secondary"><i class="bi bi-eraser"></i> Limpiar</a>
+                    <a th:href="@{/citas}" class="btn btn-secondary"><i class="bi bi-eraser"></i> Limpiar</a>
                 </div>
             </form>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                     <tr>
-                        <th><i class="bi bi-hash"></i> ID</th>
-                        <th><i class="bi bi-credit-card-2-front"></i> DNI</th>
-                        <th><i class="bi bi-person"></i> Nombre</th>
-                        <th><i class="bi bi-telephone"></i> Teléfono</th>
-                        <th><i class="bi bi-envelope"></i> Email</th>
+                        <th><i class="bi bi-calendar-date"></i> Fecha</th>
+                        <th><i class="bi bi-clock"></i> Hora</th>
+                        <th><i class="bi bi-person"></i> Paciente</th>
+                        <th><i class="bi bi-person-vcard"></i> Médico</th>
+                        <th><i class="bi bi-hospital"></i> Consultorio</th>
+                        <th><i class="bi bi-hospital"></i> Descripcion</th>
                         <th><i class="bi bi-gear"></i> Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="usuario : ${usuarios}">
-                        <td th:text="${usuario.idUsuario}"></td>
-                        <td th:text="${usuario.dni}"></td>
-                        <td th:text="${usuario.nombre + ' ' + usuario.apellido}"></td>
-                        <td th:text="${usuario.telefono}"></td>
-                        <td th:text="${usuario.email}"></td>
+                    <tr th:each="cita : ${citas}">
+                        <td th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(cita.fechaHora, 'HH:mm')}"></td>
+                        <td th:text="${cita.usuario.nombre + ' ' + cita.usuario.apellido}"></td>
+                        <td th:text="'Dr. ' + ${cita.medico.nombre} + ' ' + ${cita.medico.apellido}"></td>
+                        <td th:text="${cita.consultorio.codigo}"></td>
+                        <td th:text="${cita.consultorio.ubicacion}"></td>
                         <td>
-                            <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-warning" title="Editar">
+                            <a th:href="@{/citas/editar/{id}(id=${cita.idCita})}" class="btn btn-sm btn-warning" title="Editar">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-danger" title="Eliminar"
-                               onclick="return confirm('¿Está seguro que desea eliminar este usuario?')">
+                            <a th:href="@{/citas/eliminar/{id}(id=${cita.idCita})}" class="btn btn-sm btn-danger" title="Eliminar"
+                               onclick="return confirm('¿Está seguro que desea eliminar esta cita?')">
                                 <i class="bi bi-trash3"></i>
                             </a>
-                            <a th:href="@{/usuarios/detalles/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-info" title="Detalles">
+                            <a th:href="@{/citas/ticket/{id}(id=${cita.idCita})}" class="btn btn-sm btn-info" title="ticket">
                                 <i class="bi bi-eye-fill"></i>
                             </a>
                         </td>

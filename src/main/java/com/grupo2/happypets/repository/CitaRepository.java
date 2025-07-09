@@ -1,3 +1,4 @@
+// src/main/java/com/grupo2/happypets/repository/CitaRepository.java
 package com.grupo2.happypets.repository;
 
 import com.grupo2.happypets.model.Cita;
@@ -25,4 +26,7 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
             "LOWER(c.medico.apellido) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "LOWER(c.medico.especialidad.nombre) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<Cita> buscarCitas(@Param("searchTerm") String searchTerm);
+
+    // Método para contar citas por médico y rango de fecha/hora
+    long countByMedicoIdMedicoAndFechaHoraBetween(Long idMedico, LocalDateTime inicio, LocalDateTime fin);
 }

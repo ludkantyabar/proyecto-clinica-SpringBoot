@@ -77,9 +77,8 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Fecha y Hora</label>
-        <input type="datetime-local" th:field="*{fechaHora}" class="form-control" required
-               th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
+        <label class="form-label">Fecha</label>
+        <input type="date" th:field="*{fecha}" class="form-control" required />
       </div>
 
       <div class="mb-3">

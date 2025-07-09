@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,11 +30,32 @@ public class CitaService {
     }
 
     /**
-     * Guarda o actualiza una cita y retorna la entidad guardada
-     * @param cita Entidad Cita a guardar
-     * @return Cita guardada con ID asignado
+     * Asigna automáticamente la hora de la cita según el orden del día.
+     * Lanza excepción si el médico ya tiene 10 citas ese día.
+     */
+    public void asignarHoraYCita(Cita cita) {
+        LocalDate fecha = cita.getFecha(); // Ahora viene del formulario
+        Long idMedico = cita.getMedico().getIdMedico();
+
+        long totalCitas = citaRepository.countByMedicoIdMedicoAndFechaHoraBetween(
+                idMedico,
+                fecha.atStartOfDay(),
+                fecha.plusDays(1).atStartOfDay().minusSeconds(1)
+        );
+
+        if (totalCitas >= 10) {
+            throw new IllegalStateException("El médico ya tiene 10 citas para ese día");
+        }
+
+        LocalDateTime fechaHora = fecha.atTime(8, 0).plusMinutes(30 * totalCitas);
+        cita.setFechaHora(fechaHora);
+    }
+
+    /**
+     * Guarda una cita asignando automáticamente la hora.
      */
     public Cita guardarCita(Cita cita) {
+        asignarHoraYCita(cita);
         return citaRepository.save(cita);
     }
 

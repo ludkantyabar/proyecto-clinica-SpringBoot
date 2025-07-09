@@ -68,10 +68,11 @@ public class CitaCrudController {
     @PostMapping("/guardar")
     public String guardarCita(@ModelAttribute("cita") Cita cita, Model model) {
         try {
-            Cita citaGuardada = citaService.guardarCita(cita);
-            return "redirect:/citas/ticket/" + citaGuardada.getIdCita();
+            citaService.asignarHoraYCita(cita); // Usa cita.getFecha()
+            citaService.guardarCita(cita);      // Guarda la cita con fecha y hora asignadas
+            return "redirect:/citas";
         } catch (Exception ex) {
-            model.addAttribute("error", "La fecha y hora debe estar en el futuro.");
+            model.addAttribute("error", ex.getMessage());
             model.addAttribute("usuarios", usuarioService.obtenerTodosUsuarios());
             model.addAttribute("medicos", medicoService.obtenerTodosMedicos());
             model.addAttribute("consultorios", consultorioService.obtenerTodosConsultorios());
@@ -110,4 +111,5 @@ public class CitaCrudController {
         model.addAttribute("ticket", ticket);
         return "citas/ticket";
     }
+
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -46,6 +47,11 @@ public class Cita {
     private Date fechaCreacion = new Date();
 
     private String notas;
+
+    // Campo transitorio para recibir solo la fecha desde el formulario
+    @Transient
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
 
     public enum EstadoCita {
         PENDIENTE, CONFIRMADA, COMPLETADA, CANCELADA
