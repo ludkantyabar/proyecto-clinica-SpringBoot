@@ -57,6 +57,9 @@
                 <a th:href="@{/medicos/{idMedico}/pacientes-con-cita(idMedico=${idMedico}, idUsuario=${paciente.idUsuario})}" class="btn btn-success">
                     <i class="bi bi-journal-medical"></i>Registrar Historial
                 </a>
+                <a th:href="@{/historiales/ver(idUsuario=${paciente.idUsuario})}" class="btn btn-info">
+                    <i class="bi bi-file-medical"></i>Ver Historial
+                </a>
             </td>
         </tr>
         </tbody>

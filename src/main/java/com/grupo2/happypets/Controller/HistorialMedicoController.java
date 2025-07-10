@@ -24,19 +24,18 @@ public class HistorialMedicoController {
     @Autowired
     private MedicoRepository medicoRepo;
 
-    // Formulario para que el médico llene el historial
+    // Formulario para crear nuevo historial
     @GetMapping("/nuevo/{idUsuario}")
     public String mostrarFormulario(@PathVariable Long idUsuario, Model model) {
         model.addAttribute("historial", new HistorialMedico());
         model.addAttribute("usuario", usuarioRepo.findById(idUsuario).orElse(null));
-        // Simulación: obtener el médico autenticado (ajusta según tu lógica de autenticación)
-        Long idMedico = 1L; // Reemplaza por el id real del médico autenticado
+        Long idMedico = 1L; // Simulación, reemplaza por el id real del médico autenticado
         Medico medico = medicoRepo.findById(idMedico).orElse(null);
         model.addAttribute("medico", medico);
         return "historial_form";
     }
 
-    // Guardar historial médico y redirigir a la vista de historiales del usuario
+    // Guardar historial (nuevo o editado)
     @PostMapping("/guardar")
     public String guardarHistorial(@ModelAttribute HistorialMedico historial,
                                    @RequestParam Long idUsuario,
@@ -45,13 +44,14 @@ public class HistorialMedicoController {
         Medico medico = medicoRepo.findById(idMedico).orElse(null);
         historial.setUsuario(usuario);
         historial.setMedico(medico);
-        historial.setFechaRegistro(LocalDateTime.now());
+        if (historial.getIdHistorial() == null) {
+            historial.setFechaRegistro(LocalDateTime.now());
+        }
         historialRepo.save(historial);
-        // Redirige a la vista de historiales del paciente
         return "redirect:/historiales/ver?idUsuario=" + idUsuario;
     }
 
-    // Ver historial médico del paciente
+    // Ver historiales de un paciente
     @GetMapping("/ver")
     public String verHistoriales(@RequestParam Long idUsuario, Model model) {
         List<HistorialMedico> historiales = historialRepo.findByUsuarioIdUsuario(idUsuario);
@@ -59,5 +59,30 @@ public class HistorialMedicoController {
         model.addAttribute("historiales", historiales);
         model.addAttribute("usuario", usuario);
         return "ver_historiales";
+    }
+
+    // Formulario para editar historial
+    @GetMapping("/editar/{id}")
+    public String editarHistorial(@PathVariable Long id, Model model) {
+        HistorialMedico historial = historialRepo.findById(id).orElse(null);
+        if (historial == null) {
+            return "redirect:/historiales/ver?idUsuario=0";
+        }
+        model.addAttribute("historial", historial);
+        model.addAttribute("usuario", historial.getUsuario());
+        model.addAttribute("medico", historial.getMedico());
+        return "historial_form";
+    }
+
+    // Eliminar historial
+    @GetMapping("/eliminar/{id}")
+    public String eliminarHistorial(@PathVariable Long id) {
+        HistorialMedico historial = historialRepo.findById(id).orElse(null);
+        if (historial != null) {
+            Long idUsuario = historial.getUsuario().getIdUsuario();
+            historialRepo.deleteById(id);
+            return "redirect:/historiales/ver?idUsuario=" + idUsuario;
+        }
+        return "redirect:/historiales/ver?idUsuario=0";
     }
 }

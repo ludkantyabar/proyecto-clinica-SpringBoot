@@ -52,6 +52,7 @@
                 <th><i class="bi bi-person-badge"></i> Médico</th>
                 <th><i class="bi bi-clipboard2-pulse"></i> Diagnóstico</th>
                 <th><i class="bi bi-capsule"></i> Tratamiento</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -63,13 +64,24 @@
                 </td>
                 <td th:text="${historial.diagnostico}"></td>
                 <td th:text="${historial.tratamiento}"></td>
+                <td>
+                    <a th:href="@{/historiales/editar/{id}(id=${historial.idHistorial})}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a th:href="@{/historiales/eliminar/{id}(id=${historial.idHistorial})}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar este historial?');">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
+                </td>
             </tr>
             </tbody>
+
         </table>
         <div class="mb-3">
             <a th:href="@{/medicos}" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Volver a Lista de Médicos
             </a>
+
         </div>
     </div>
 </div>
