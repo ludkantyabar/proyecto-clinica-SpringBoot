@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes con Cita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .container-main {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            padding: 32px 28px;
+        }
+        h2 {
+            color: #0d6efd;
+            margin-bottom: 28px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .form-container {
+            margin-top: 40px;
+            padding: 24px 20px;
+            background: #f1f3f6;
+            border-radius: 10px;
+        }
+        .btn-success {
+            width: 100%;
+        }
+        .bi {
+            margin-right: 6px;
+            vertical-align: -.125em;
+        }
+    </style>
+</head>
+<body>
+<div class="container-main">
+    <h2><i class="bi bi-people"></i>Pacientes con Cita</h2>
+    <!-- Tabla de pacientes -->
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+        <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paciente : ${pacientes}">
+            <td th:text="${paciente.nombre + ' ' + paciente.apellido}"></td>
+            <td>
+                <a th:href="@{/medicos/{idMedico}/pacientes-con-cita(idMedico=${idMedico}, idUsuario=${paciente.idUsuario})}" class="btn btn-success">
+                    <i class="bi bi-journal-medical"></i>Registrar Historial
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Mostrar formulario solo si hay usuario seleccionado -->
+    <div class="form-container" th:if="${usuario != null}">
+        <h4>
+            <i class="bi bi-journal-medical"></i>
+            Registrar Historial Médico para <span th:text="${usuario.nombre + ' ' + usuario.apellido}"></span>
+        </h4>
+        <form th:action="@{/historiales/guardar}" th:object="${historial}" method="post">
+            <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}" />
+            <input type="hidden" name="idMedico" th:value="${medico.idMedico}" />
+            <div class="mb-3">
+                <label class="form-label"><i class="bi bi-clipboard2-pulse"></i>Diagnóstico:</label>
+                <textarea th:field="*{diagnostico}" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><i class="bi bi-capsule"></i>Tratamiento:</label>
+                <textarea th:field="*{tratamiento}" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save2"></i>Guardar
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

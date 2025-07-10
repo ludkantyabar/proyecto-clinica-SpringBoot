@@ -29,4 +29,6 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
 
     // Método para contar citas por médico y rango de fecha/hora
     long countByMedicoIdMedicoAndFechaHoraBetween(Long idMedico, LocalDateTime inicio, LocalDateTime fin);
+    // CitaRepository.java
+    List<Cita> findByMedicoIdMedico(Long idMedico);
 }

@@ -90,7 +90,19 @@
             <a th:href="@{/medicos/eliminar/{id}(id=${medico.idMedico})}" class="btn btn-danger btn-sm icon-btn" onclick="return confirm('¿Está seguro?')">
               <i class="bi bi-trash"></i>
             </a>
-          </td>
+            <!-- Enlace para registrar historial médico -->
+            <a th:href="@{/historiales/nuevo/{idUsuario}(idUsuario=${medico.idMedico})}" class="btn btn-success btn-sm icon-btn">
+              <i class="bi bi-journal-plus"></i>
+            </a>
+            <!-- Enlace para ver historiales médicos -->
+            <a th:href="@{/historiales/usuario/{idUsuario}(idUsuario=${medico.idMedico})}" class="btn btn-info btn-sm icon-btn">
+              <i class="bi bi-journal-medical"></i>
+            </a>
+
+            <a th:href="@{/medicos/{idMedico}/pacientes-con-cita(idMedico=${medico.idMedico}, idUsuario=${medico.idMedico})}" class="btn btn-secondary btn-sm icon-btn">
+              <i class="bi bi-people"></i> Pacientes con Cita
+            </a>
+
         </tr>
         </tbody>
       </table>
